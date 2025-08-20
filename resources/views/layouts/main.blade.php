@@ -17,6 +17,9 @@
                 <li>
                     <a href="{{ route('products.list') }}">Products</a>
                 </li>
+                <li>
+                    <a href="{{ route('shops.list') }}">Shops</a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -24,8 +27,7 @@
     <main id="app-cmp-main-content" @class($mainClasses ?? [])>
         <header>
             <h1><span @class($titleClesses ?? [])>{{ $title }}</span></h1>
-            @section('header')
-            @show
+            @yield('header')
         </header>
 
         @yield('content')
