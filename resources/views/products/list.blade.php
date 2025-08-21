@@ -20,9 +20,9 @@
             </div>
 
             <div class="app-cmp-form-actions">
-                <button type="submit" class="primary">Search</button>
+                <button type="submit" class="app-cl-primary">Search</button>
                 <a href="{{ route('products.list') }}">
-                    <button type="button" class="accent">X</button>
+                    <button type="button" class="app-cl-accent">X</button>
                 </a>
             </div>
         </form>

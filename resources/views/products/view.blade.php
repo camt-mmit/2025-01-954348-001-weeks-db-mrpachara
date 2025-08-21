@@ -1,5 +1,6 @@
 @extends('products.main', [
     'title' => $product->code,
+    'titleClasses' => ['app-cl-code'],
 ])
 
 @section('header')

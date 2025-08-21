@@ -26,7 +26,11 @@
 
     <main id="app-cmp-main-content" @class($mainClasses ?? [])>
         <header>
-            <h1><span @class($titleClesses ?? [])>{{ $title }}</span></h1>
+            <h1>
+                @section('title')
+                    <span @class($titleClasses ?? [])>{{ $title }}</span>
+                @show
+            </h1>
             @yield('header')
         </header>
 
