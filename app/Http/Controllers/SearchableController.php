@@ -9,27 +9,32 @@ abstract class SearchableController extends Controller
 {
     abstract function getQuery(): Builder;
 
-    function filterByTerm(Builder $query, ?string $term): Builder
-    {
-        if (!empty($term)) {
-            foreach (\preg_split('/\s+/', \trim($term)) as $word) {
-                $query->where(function (Builder $innerQuery) use ($word) {
-                    $innerQuery
-                        ->where('code', 'LIKE', "%{$word}%")
-                        ->orWhere('name', 'LIKE', "%{$word}%");
-                });
-            }
-        }
-
-        return $query;
-    }
-
     function prepareCriteria(array $criteria): array
     {
         return [
             'term' => null,
             ...$criteria,
         ];
+    }
+
+    function applyWhereToFilterByTerm(Builder $query, string $word): void
+    {
+        $query
+            ->where('code', 'LIKE', "%{$word}%")
+            ->orWhere('name', 'LIKE', "%{$word}%");
+    }
+
+    function filterByTerm(Builder $query, ?string $term): Builder
+    {
+        if (!empty($term)) {
+            foreach (\preg_split('/\s+/', \trim($term)) as $word) {
+                $query->where(function (Builder $innerQuery) use ($word): void {
+                    $this->applyWhereToFilterByTerm($innerQuery, $word);
+                });
+            }
+        }
+
+        return $query;
     }
 
     function filter(Builder $query, array $criteria): Builder
