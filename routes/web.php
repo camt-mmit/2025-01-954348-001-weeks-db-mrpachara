@@ -18,6 +18,7 @@ Route::controller(ProductController::class)
         Route::post('/create', 'create')->name('create');
         Route::prefix('/{product}')->group(static function (): void {
             Route::get('', 'view')->name('view');
+            Route::get('/shops', 'viewShops')->name('view-shops');
             Route::get('/update', 'showUpdateForm')->name('update-form');
             Route::post('/update', 'update')->name('update');
             Route::post('/delete', 'delete')->name('delete');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Psr\Http\Message\ServerRequestInterface;
@@ -33,10 +34,10 @@ class ProductController extends SearchableController
     }
 
     function filterByPrice(
-        Builder $query,
+        Builder | Relation $query,
         ?float $minPrice,
         ?float $maxPrice
-    ): Builder {
+    ): Builder | Relation {
         if ($minPrice !== null) {
             $query->where('price', '>=', $minPrice);
         }
@@ -49,7 +50,7 @@ class ProductController extends SearchableController
     }
 
     #[\Override]
-    function filter(Builder $query, array $criteria): Builder
+    function filter(Builder | Relation $query, array $criteria): Builder | Relation
     {
         $query = parent::filter($query, $criteria);
         $query = $this->filterByPrice(
@@ -64,7 +65,7 @@ class ProductController extends SearchableController
     function list(ServerRequestInterface $request): View
     {
         $criteria = $this->prepareCriteria($request->getQueryParams());
-        $query = $this->search($criteria);
+        $query = $this->search($criteria)->withCount('shops');
 
         return view('products.list', [
             'criteria' => $criteria,
@@ -121,5 +122,21 @@ class ProductController extends SearchableController
         $product->delete();
 
         return redirect()->route('products.list');
+    }
+
+    function viewShops(
+        ServerRequestInterface $request,
+        ShopController $shopController,
+        string $productCode,
+    ): View {
+        $product = $this->find($productCode);
+        $criteria = $shopController->prepareCriteria($request->getQueryParams());
+        $query = $shopController->filter($product->shops(), $criteria);
+
+        return view('products.view-shops', [
+            'product' => $product,
+            'criteria' => $criteria,
+            'shops' => $query->paginate($shopController::MAX_ITEMS),
+        ]);
     }
 }
