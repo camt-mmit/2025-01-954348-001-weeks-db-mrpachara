@@ -1,6 +1,7 @@
 @extends('products.main', [
-    'title' => $product->code,
     'mainClasses' => ['app-ly-max-width'],
+    'title' => $product->code,
+    'titleClasses' => ['app-cl-code'],
     'subTitle' => 'Shops',
 ])
 
