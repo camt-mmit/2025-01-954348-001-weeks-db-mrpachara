@@ -1,5 +1,5 @@
 @extends('layouts.main', [
-    'title' => "Shops: {$title}",
+    'title' => "Shops: {$title}" . (isset($subTitle) ? " {$subTitle}" : ''),
 ])
 
 @section('title')

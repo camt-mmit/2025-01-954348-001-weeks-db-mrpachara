@@ -59,6 +59,7 @@
             <col style="width: 5ch;" />
             <col />
             <col />
+            <col />
             <col style="width: 4ch;" />
         </colgroup>
 
@@ -66,6 +67,7 @@
             <tr>
                 <th>Code</th>
                 <th>Name</th>
+                <th>Category</th>
                 <th>Price</th>
                 <th>No. of Shops</th>
             </tr>
@@ -83,6 +85,7 @@
                         </a>
                     </td>
                     <td>{{ $product->name }}</td>
+                    <td>{{ $product->category->name }}</td>
                     <td class="app-cl-number">{{ number_format($product->price, 2) }}</td>
                     <td class="app-cl-number">{{ number_format($product->shops_count, 0) }}</td>
                 </tr>

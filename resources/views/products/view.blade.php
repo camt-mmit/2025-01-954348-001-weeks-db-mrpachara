@@ -45,6 +45,12 @@
             {{ $product->name }}
         </dd>
 
+        <dt>Category</dt>
+        <dd>
+            [<span class="app-cl-code">{{ $product->category->code }}</span>]
+            <span>{{ $product->category->name }}</span>
+        </dd>
+
         <dt>Price</dt>
         <dd>
             <span style="display: inline-block; width: 10ch;" class="app-cl-number">{{ $product->price }}</span>

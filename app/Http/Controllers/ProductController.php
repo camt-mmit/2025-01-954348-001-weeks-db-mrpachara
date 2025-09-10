@@ -65,7 +65,10 @@ class ProductController extends SearchableController
     function list(ServerRequestInterface $request): View
     {
         $criteria = $this->prepareCriteria($request->getQueryParams());
-        $query = $this->search($criteria)->withCount('shops');
+        $query = $this
+            ->search($criteria)
+            ->with('category')
+            ->withCount('shops');
 
         return view('products.list', [
             'criteria' => $criteria,

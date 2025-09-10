@@ -1,11 +1,16 @@
-@extends('products.main', [
-    'title' => 'List',
+@extends('categories.main', [
     'mainClasses' => ['app-ly-max-width'],
+    'title' => $category->code,
+    'titleClasses' => ['app-cl-code'],
+    'subTitle' => 'Products',
 ])
 
 @section('header')
     <search>
-        <form action="{{ route('products.list') }}" method="get" class="app-cmp-search-form">
+        <form action="{{ route('categories.view-products', [
+            'category' => $category->code,
+        ]) }}"
+            method="get" class="app-cmp-search-form">
             <div class="app-cmp-form-detail">
                 <label for="app-criteria-term">Search</label>
                 <input type="text" id="app-criteria-term" name="term" value="{{ $criteria['term'] }}" />
@@ -21,7 +26,10 @@
 
             <div class="app-cmp-form-actions">
                 <button type="submit" class="app-cl-primary">Search</button>
-                <a href="{{ route('products.list') }}">
+                <a
+                    href="{{ route('categories.view-products', [
+                        'category' => $category->code,
+                    ]) }}">
                     <button type="button" class="app-cl-accent">X</button>
                 </a>
             </div>
@@ -32,7 +40,11 @@
         <nav>
             <ul class="app-cmp-links">
                 <li>
-                    <a href="{{ route('products.create-form') }}">New Product</a>
+                    <a
+                        href="{{ route('categories.view', [
+                            'category' => $category->code,
+                        ]) }}">&lt;
+                        Back</a>
                 </li>
             </ul>
         </nav>

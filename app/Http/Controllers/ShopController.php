@@ -97,6 +97,7 @@ class ShopController extends SearchableController
         $criteria = $productController->prepareCriteria($request->getQueryParams());
         $query = $productController
             ->filter($shop->products(), $criteria)
+            ->with('category')
             ->withCount('shops');
 
         return view('shops.view-products', [
