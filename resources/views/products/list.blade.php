@@ -45,6 +45,9 @@
     <table class="app-cmp-data-list">
         <colgroup>
             <col style="width: 5ch;" />
+            <col />
+            <col />
+            <col style="width: 4ch;" />
         </colgroup>
 
         <thead>

@@ -49,6 +49,9 @@
     <table class="app-cmp-data-list">
         <colgroup>
             <col style="width: 5ch;" />
+            <col />
+            <col />
+            <col style="width: 4ch;" />
         </colgroup>
 
         <thead>
@@ -56,6 +59,7 @@
                 <th>Code</th>
                 <th>Name</th>
                 <th>Owner</th>
+                <th>No. of Products</th>
             </tr>
         </thead>
 
@@ -72,6 +76,7 @@
                     </td>
                     <td>{{ $shop->name }}</td>
                     <td>{{ $shop->owner }}</td>
+                    <td class="app-cl-number">{{ number_format($shop->products_count, 0) }}</td>
                 </tr>
             @endforeach
         </tbody>

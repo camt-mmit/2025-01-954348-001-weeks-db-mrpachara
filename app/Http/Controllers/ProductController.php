@@ -131,7 +131,9 @@ class ProductController extends SearchableController
     ): View {
         $product = $this->find($productCode);
         $criteria = $shopController->prepareCriteria($request->getQueryParams());
-        $query = $shopController->filter($product->shops(), $criteria);
+        $query = $shopController
+            ->filter($product->shops(), $criteria)
+            ->withCount('products');
 
         return view('products.view-shops', [
             'product' => $product,
