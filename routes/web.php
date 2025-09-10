@@ -34,6 +34,7 @@ Route::controller(ShopController::class)
         Route::post('/create', 'create')->name('create');
         Route::prefix('/{shop}')->group(static function (): void {
             Route::get('', 'view')->name('view');
+            Route::get('/products', 'viewProducts')->name('view-products');
             Route::get('/update', 'showUpdateForm')->name('update-form');
             Route::post('/update', 'update')->name('update');
             Route::post('/delete', 'delete')->name('delete');

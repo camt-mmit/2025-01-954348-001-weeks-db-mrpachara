@@ -29,7 +29,7 @@ class ShopController extends SearchableController
     function list(ServerRequestInterface $request): View
     {
         $criteria = $this->prepareCriteria($request->getQueryParams());
-        $query = $this->search($criteria);
+        $query = $this->search($criteria)->withCount('products');
 
         return view('shops.list', [
             'criteria' => $criteria,
@@ -86,5 +86,23 @@ class ShopController extends SearchableController
         $shop->delete();
 
         return redirect()->route('shops.list');
+    }
+
+    function viewProducts(
+        ServerRequestInterface $request,
+        ProductController $productController,
+        string $shopCode,
+    ): View {
+        $shop = $this->find($shopCode);
+        $criteria = $productController->prepareCriteria($request->getQueryParams());
+        $query = $productController
+            ->filter($shop->products(), $criteria)
+            ->withCount('shops');
+
+        return view('shops.view-products', [
+            'shop' => $shop,
+            'criteria' => $criteria,
+            'products' => $query->paginate($productController::MAX_ITEMS),
+        ]);
     }
 }
