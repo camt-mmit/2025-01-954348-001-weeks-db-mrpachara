@@ -2,15 +2,15 @@
     'mainClasses' => ['app-ly-max-width'],
     'title' => $product->code,
     'titleClasses' => ['app-cl-code'],
-    'subTitle' => 'Shops',
+    'subTitle' => 'Add Shops',
 ])
 
 @section('header')
     <search>
-        <form action="{{ route('products.view-shops', [
+        <form action="{{ route('products.add-shops-form', [
             'product' => $product->code,
-        ]) }}" method="get"
-            class="app-cmp-search-form">
+        ]) }}"
+            method="get" class="app-cmp-search-form">
             <div class="app-cmp-form-detail">
                 <label for="app-criteria-term">Search</label>
                 <input type="text" id="app-criteria-term" name="term" value="{{ $criteria['term'] }}" />
@@ -19,7 +19,7 @@
             <div class="app-cmp-form-actions">
                 <button type="submit" class="app-cl-primary">Search</button>
                 <a
-                    href="{{ route('products.view-shops', [
+                    href="{{ route('products.add-shops-form', [
                         'product' => $product->code,
                     ]) }}">
                     <button type="button" class="app-cl-accent">X</button>
@@ -30,27 +30,20 @@
 
     <div class="app-cmp-links-bar">
         <nav>
-            <form action="{{ route('products.remove-shop', [
+            <form action="{{ route('products.add-shop', [
                 'product' => $product->code,
             ]) }}"
-                id="app-form-remove-shop" method="post">
+                id="app-form-add-shop" method="post">
                 @csrf
             </form>
 
             <ul class="app-cmp-links">
                 <li>
                     <a
-                        href="{{ route('products.view', [
+                        href="{{ route('products.view-shops', [
                             'product' => $product->code,
                         ]) }}">&lt;
                         Back</a>
-                </li>
-                <li>
-                    <a
-                        href="{{ route('products.add-shops-form', [
-                            'product' => $product->code,
-                        ]) }}">Add
-                        Shops</a>
                 </li>
             </ul>
         </nav>
@@ -94,8 +87,8 @@
                     <td>{{ $shop->owner }}</td>
                     <td class="app-cl-number">{{ number_format($shop->products_count, 0) }}</td>
                     <td>
-                        <button type="submit" form="app-form-remove-shop" name="shop" value="{{ $shop->code }}">
-                            Remove
+                        <button type="submit" form="app-form-add-shop" name="shop" value="{{ $shop->code }}">
+                            Add
                         </button>
                     </td>
                 </tr>

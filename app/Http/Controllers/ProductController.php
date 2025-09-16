@@ -144,4 +144,69 @@ class ProductController extends SearchableController
             'shops' => $query->paginate($shopController::MAX_ITEMS),
         ]);
     }
+
+    function showAddShopsForm(
+        ServerRequestInterface $request,
+        ShopController $shopController,
+        string $productCode,
+    ): View {
+        $product = $this->find($productCode);
+        $query = $shopController
+            ->getQuery()
+            ->whereDoesntHave(
+                'products',
+                function (Builder $innerQuery) use ($product) {
+                    return $innerQuery->where('code', $product->code);
+                },
+            );
+
+        $criteria = $shopController->prepareCriteria($request->getQueryParams());
+        $query = $shopController->filter($query, $criteria);
+
+        return view('products.add-shops-form', [
+            'criteria' => $criteria,
+            'product' => $product,
+            'shops' => $query->paginate($shopController::MAX_ITEMS),
+        ]);
+    }
+
+    function addShop(
+        ServerRequestInterface $request,
+        ShopController $shopController,
+        string $productCode,
+    ): RedirectResponse {
+        $product = $this->find($productCode);
+        $data = $request->getParsedBody();
+
+        $shop = $shopController
+            ->getQuery()
+            ->whereDoesntHave(
+                'products',
+                function (Builder $innerQuery) use ($product) {
+                    return $innerQuery->where('code', $product->code);
+                },
+            )
+            ->where('code', $data['shop'])
+            ->firstOrFail();
+
+        $product->shops()->attach($shop);
+
+        return redirect()->back();
+    }
+
+    function removeShop(
+        ServerRequestInterface $request,
+        string $productCode,
+    ): RedirectResponse {
+        $product = $this->find($productCode);
+        $data = $request->getParsedBody();
+
+        $shop = $product->shops()
+            ->where('code', $data['shop'])
+            ->firstOrFail();
+
+        $product->shops()->detach($shop);
+
+        return redirect()->back();
+    }
 }
