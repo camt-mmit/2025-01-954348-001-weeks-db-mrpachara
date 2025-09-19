@@ -161,7 +161,9 @@ class ProductController extends SearchableController
             );
 
         $criteria = $shopController->prepareCriteria($request->getQueryParams());
-        $query = $shopController->filter($query, $criteria);
+        $query = $shopController
+            ->filter($query, $criteria)
+            ->withCount('products');
 
         return view('products.add-shops-form', [
             'criteria' => $criteria,
