@@ -38,6 +38,13 @@
 
     <div class="app-cmp-links-bar">
         <nav>
+            <form action="{{ route('shops.remove-product', [
+                'shop' => $shop->code,
+            ]) }}"
+                id="app-form-remove-product" method="post">
+                @csrf
+            </form>
+
             <ul class="app-cmp-links">
                 <li>
                     <a
@@ -45,6 +52,13 @@
                             'shop' => $shop->code,
                         ]) }}">&lt;
                         Back</a>
+                </li>
+                <li>
+                    <a
+                        href="{{ route('shops.add-products-form', [
+                            'shop' => $shop->code,
+                        ]) }}">Add
+                        Products</a>
                 </li>
             </ul>
         </nav>
@@ -61,6 +75,7 @@
             <col />
             <col />
             <col style="width: 4ch;" />
+            <col style="width: 0px;" />
         </colgroup>
 
         <thead>
@@ -70,6 +85,7 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>No. of Shops</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -88,6 +104,11 @@
                     <td>{{ $product->category->name }}</td>
                     <td class="app-cl-number">{{ number_format($product->price, 2) }}</td>
                     <td class="app-cl-number">{{ number_format($product->shops_count, 0) }}</td>
+                    <td>
+                        <button type="submit" form="app-form-remove-product" name="product" value="{{ $product->code }}">
+                            Remove
+                        </button>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

@@ -44,7 +44,13 @@ Route::controller(ShopController::class)
             Route::get('/update', 'showUpdateForm')->name('update-form');
             Route::post('/update', 'update')->name('update');
             Route::post('/delete', 'delete')->name('delete');
-            Route::get('/products', 'viewProducts')->name('view-products');
+            Route::prefix('/products')
+                ->group(static function (): void {
+                    Route::get('', 'viewProducts')->name('view-products');
+                    Route::get('/add', 'showAddProductsForm')->name('add-products-form');
+                    Route::post('/add', 'addProduct')->name('add-product');
+                    Route::post('/remove', 'removeProduct')->name('remove-product');
+                });
         });
     });
 
@@ -60,6 +66,11 @@ Route::controller(CategoryController::class)
             Route::get('/update', 'showUpdateForm')->name('update-form');
             Route::post('/update', 'update')->name('update');
             Route::post('/delete', 'delete')->name('delete');
-            Route::get('/products', 'viewProducts')->name('view-products');
+            Route::prefix('/products')
+                ->group(static function (): void {
+                    Route::get('', 'viewProducts')->name('view-products');
+                    Route::get('/add', 'showAddProductsForm')->name('add-products-form');
+                    Route::post('/add', 'addProduct')->name('add-product');
+                });
         });
     });

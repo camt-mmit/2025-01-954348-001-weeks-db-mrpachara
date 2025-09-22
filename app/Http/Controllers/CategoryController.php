@@ -98,4 +98,56 @@ class CategoryController extends SearchableController
             'products' => $query->paginate($productController::MAX_ITEMS),
         ]);
     }
+
+    function showAddProductsForm(
+        ServerRequestInterface $request,
+        ProductController $productController,
+        string $categoryCode,
+    ): View {
+        $category = $this->find($categoryCode);
+        $query = $productController
+            ->getQuery()
+            ->whereDoesntHave(
+                'category',
+                function (Builder $innerQuery) use ($category) {
+                    return $innerQuery->where('code', $category->code);
+                },
+            );
+
+        $criteria = $productController->prepareCriteria($request->getQueryParams());
+        $query = $productController
+            ->filter($query, $criteria)
+            ->with('category')
+            ->withCount('shops');
+
+        return view('categories.add-products-form', [
+            'criteria' => $criteria,
+            'category' => $category,
+            'products' => $query->paginate($productController::MAX_ITEMS),
+        ]);
+    }
+
+    function addProduct(
+        ServerRequestInterface $request,
+        ProductController $productController,
+        string $categoryCode,
+    ): RedirectResponse {
+        $category = $this->find($categoryCode);
+        $data = $request->getParsedBody();
+
+        $product = $productController
+            ->getQuery()
+            ->whereDoesntHave(
+                'category',
+                function (Builder $innerQuery) use ($category) {
+                    return $innerQuery->where('code', $category->code);
+                },
+            )
+            ->where('code', $data['product'])
+            ->firstOrFail();
+
+        $category->products()->save($product);
+
+        return redirect()->back();
+    }
 }

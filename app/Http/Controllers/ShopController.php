@@ -106,4 +106,72 @@ class ShopController extends SearchableController
             'products' => $query->paginate($productController::MAX_ITEMS),
         ]);
     }
+
+    function showAddProductsForm(
+        ServerRequestInterface $request,
+        ProductController $productController,
+        string $shopCode,
+    ): View {
+        $shop = $this->find($shopCode);
+        $query = $productController
+            ->getQuery()
+            ->whereDoesntHave(
+                'shops',
+                function (Builder $innerQuery) use ($shop) {
+                    return $innerQuery->where('code', $shop->code);
+                },
+            );
+
+        $criteria = $productController->prepareCriteria($request->getQueryParams());
+        $query = $productController
+            ->filter($query, $criteria)
+            ->with('category')
+            ->withCount('shops');
+
+        return view('shops.add-products-form', [
+            'criteria' => $criteria,
+            'shop' => $shop,
+            'products' => $query->paginate($productController::MAX_ITEMS),
+        ]);
+    }
+
+    function addProduct(
+        ServerRequestInterface $request,
+        ProductController $productController,
+        string $shopCode,
+    ): RedirectResponse {
+        $shop = $this->find($shopCode);
+        $data = $request->getParsedBody();
+
+        $product = $productController
+            ->getQuery()
+            ->whereDoesntHave(
+                'shops',
+                function (Builder $innerQuery) use ($shop) {
+                    return $innerQuery->where('code', $shop->code);
+                },
+            )
+            ->where('code', $data['product'])
+            ->firstOrFail();
+
+        $shop->products()->attach($product);
+
+        return redirect()->back();
+    }
+
+    function removeProduct(
+        ServerRequestInterface $request,
+        string $shopCode,
+    ): RedirectResponse {
+        $shop = $this->find($shopCode);
+        $data = $request->getParsedBody();
+
+        $product = $shop->products()
+            ->where('code', $data['product'])
+            ->firstOrFail();
+
+        $shop->products()->detach($product);
+
+        return redirect()->back();
+    }
 }
