@@ -39,11 +39,18 @@
     <div class="app-cmp-links-bar">
         <nav>
             <ul class="app-cmp-links">
+                @php
+                    session()->put('bookmarks.categories.add-products-form', url()->full());
+                @endphp
+
                 <li>
                     <a
-                        href="{{ route('categories.view', [
-                            'category' => $category->code,
-                        ]) }}">&lt;
+                        href="{{ session()->get(
+                            'bookmarks.categories.view-products',
+                            route('categories.view', [
+                                'category' => $category->code,
+                            ]),
+                        ) }}">&lt;
                         Back</a>
                 </li>
                 <li>

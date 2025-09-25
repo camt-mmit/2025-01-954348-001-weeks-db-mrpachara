@@ -68,6 +68,7 @@
         <tbody>
             @php
                 session()->put('bookmarks.products.view', url()->full());
+                session()->put('bookmarks.categories.view', url()->full());
             @endphp
 
             @foreach ($products as $product)
@@ -81,7 +82,12 @@
                         </a>
                     </td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->category->name }}</td>
+                    <td>
+                        <a href="{{ route('categories.view', [
+                            'category' => $product->category->code,
+                        ]) }}"
+                            class="app-cl-name">{{ $product->category->name }}</a>
+                    </td>
                     <td class="app-cl-number">{{ number_format($product->price, 2) }}</td>
                     <td class="app-cl-number">{{ number_format($product->shops_count, 0) }}</td>
                 </tr>

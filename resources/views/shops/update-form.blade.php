@@ -33,6 +33,15 @@
 
         <div class="app-cmp-form-actions">
             <button type="submit">Update</button>
+            <a
+                href="{{ session()->get(
+                    'bookmarks.shops.update-form',
+                    route('shops.view', [
+                        'shop' => $shop->code,
+                    ]),
+                ) }}">
+                <button type="button">Cancel</button>
+            </a>
         </div>
     </form>
 @endsection

@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -235,7 +236,9 @@ class ProductController extends SearchableController
 
         $product->shops()->attach($shop);
 
-        return redirect()->back();
+        return redirect()
+            ->back()
+            ->with('status', "Shop {$shop->code} was added to Product {$product->code}");
     }
 
     function removeShop(
@@ -251,6 +254,8 @@ class ProductController extends SearchableController
 
         $product->shops()->detach($shop);
 
-        return redirect()->back();
+        return redirect()
+            ->back()
+            ->with('status', "Shop {$shop->code} was removed from Product {$product->code}");
     }
 }

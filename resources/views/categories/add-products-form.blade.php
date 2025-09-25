@@ -49,9 +49,12 @@
             <ul class="app-cmp-links">
                 <li>
                     <a
-                        href="{{ route('categories.view-products', [
-                            'category' => $category->code,
-                        ]) }}">&lt;
+                        href="{{ session()->get(
+                            'categories.add-products-form',
+                            route('categories.view-products', [
+                                'category' => $category->code,
+                            ]),
+                        ) }}">&lt;
                         Back</a>
                 </li>
             </ul>

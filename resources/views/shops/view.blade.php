@@ -13,6 +13,14 @@
         </form>
 
         <ul class="app-cmp-links">
+            @php
+                session()->put('bookmarks.shops.view-products', url()->full());
+            @endphp
+
+            <li>
+                <a href="{{ session()->get('bookmarks.shops.view', route('shops.list')) }}">&lt;
+                    Back</a>
+            </li>
             <li>
                 <a
                     href="{{ route('shops.view-products', [

@@ -22,6 +22,10 @@
 
     <div class="app-cmp-links-bar">
         <nav>
+            @php
+                session()->put('bookmarks.categories.create-form', url()->full());
+            @endphp
+
             <ul class="app-cmp-links">
                 <li>
                     <a href="{{ route('categories.create-form') }}">New Category</a>
@@ -50,6 +54,10 @@
         </thead>
 
         <tbody>
+            @php
+                session()->put('bookmarks.categories.view', url()->full());
+            @endphp
+
             @foreach ($categories as $category)
                 <tr>
                     <td>

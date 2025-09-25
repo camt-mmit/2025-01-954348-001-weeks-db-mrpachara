@@ -38,11 +38,18 @@
             </form>
 
             <ul class="app-cmp-links">
+                @php
+                    session()->put('bookmarks.products.add-shops-form', url()->full());
+                @endphp
+
                 <li>
                     <a
-                        href="{{ route('products.view', [
-                            'product' => $product->code,
-                        ]) }}">&lt;
+                        href="{{ session()->get(
+                            'bookmarks.products.view-shops',
+                            route('products.view', [
+                                'product' => $product->code,
+                            ]),
+                        ) }}">&lt;
                         Back</a>
                 </li>
                 <li>
@@ -80,6 +87,10 @@
         </thead>
 
         <tbody>
+            @php
+                session()->put('bookmarks.shops.view', url()->full());
+            @endphp
+
             @foreach ($shops as $shop)
                 <tr>
                     <td>

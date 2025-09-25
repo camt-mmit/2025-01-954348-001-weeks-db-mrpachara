@@ -55,7 +55,10 @@ class ShopController extends SearchableController
     {
         $shop = Shop::create($request->getParsedBody());
 
-        return redirect()->route('shops.list');
+        return redirect(
+            session()->get('bookmarks.shops.create-form', route('shops.list')),
+        )
+            ->with('status', "Shop {$shop->code} was created");
     }
 
     function showUpdateForm(string $shopCode): View
@@ -75,9 +78,11 @@ class ShopController extends SearchableController
         $shop->fill($request->getParsedBody());
         $shop->save();
 
-        return redirect()->route('shops.view', [
-            'shop' => $shop->code,
-        ]);
+        return redirect()
+            ->route('shops.view', [
+                'shop' => $shop->code,
+            ])
+            ->with('status', "Shop {$shop->code} was updated");
     }
 
     function delete(string $shopCode): RedirectResponse
@@ -85,7 +90,10 @@ class ShopController extends SearchableController
         $shop = $this->find($shopCode);
         $shop->delete();
 
-        return redirect()->route('shops.list');
+        return redirect(
+            session()->get('bookmarks.shops.view', route('shops.list')),
+        )
+            ->with('status', "Shop {$shop->code} was deleted");
     }
 
     function viewProducts(
@@ -156,7 +164,9 @@ class ShopController extends SearchableController
 
         $shop->products()->attach($product);
 
-        return redirect()->back();
+        return redirect()
+            ->back()
+            ->with('status', "Product {$product->code} was added to Shop {$shop->code}");
     }
 
     function removeProduct(
@@ -172,6 +182,8 @@ class ShopController extends SearchableController
 
         $shop->products()->detach($product);
 
-        return redirect()->back();
+        return redirect()
+            ->back()
+            ->with('status', "Product {$product->code} was removed from Shop {$shop->code}");
     }
 }
