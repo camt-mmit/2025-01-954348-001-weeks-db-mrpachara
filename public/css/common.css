@@ -41,6 +41,11 @@ input[type="number"] {
     font-weight: bold;
 }
 
+.app-cl-name {
+    color: var(--app-primary-color);
+    font-weight: bold;
+}
+
 .app-cl-options-row {
     display: flex;
     flex-direction: row;
@@ -166,6 +171,29 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
                 &:hover {
                     text-decoration: underline;
                 }
+            }
+        }
+    }
+
+    .app-cmp-notifications {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & > * {
+            margin-bottom: 8px;
+            border: 1px solid currentColor;
+            border-radius: 4px;
+            padding: 0.5em 1ch;
+
+            font-weight: bold;
+        }
+
+        & > [role="status"] {
+            color: var(--app-primary-color);
+
+            &::before {
+                content: 'ℹ';
             }
         }
     }

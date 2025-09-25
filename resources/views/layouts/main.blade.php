@@ -35,6 +35,15 @@
                     <span @class($titleClasses ?? [])>{{ $title }}</span>
                 @show
             </h1>
+
+            <div class="app-cmp-notifications">
+                @session('status')
+                    <div role="status">
+                        {{ $value }}
+                    </div>
+                @endsession
+            </div>
+
             @yield('header')
         </header>
 

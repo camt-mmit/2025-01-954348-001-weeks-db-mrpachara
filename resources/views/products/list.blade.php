@@ -30,6 +30,10 @@
 
     <div class="app-cmp-links-bar">
         <nav>
+            @php
+                session()->put('bookmarks.products.create-form', url()->full());
+            @endphp
+
             <ul class="app-cmp-links">
                 <li>
                     <a href="{{ route('products.create-form') }}">New Product</a>
@@ -62,6 +66,10 @@
         </thead>
 
         <tbody>
+            @php
+                session()->put('bookmarks.products.view', url()->full());
+            @endphp
+
             @foreach ($products as $product)
                 <tr>
                     <td>
