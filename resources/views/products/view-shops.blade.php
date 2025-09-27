@@ -52,13 +52,15 @@
                         ) }}">&lt;
                         Back</a>
                 </li>
-                <li>
-                    <a
-                        href="{{ route('products.add-shops-form', [
-                            'product' => $product->code,
-                        ]) }}">Add
-                        Shops</a>
-                </li>
+                @can('update', $product)
+                    <li>
+                        <a
+                            href="{{ route('products.add-shops-form', [
+                                'product' => $product->code,
+                            ]) }}">Add
+                            Shops</a>
+                    </li>
+                @endcan
             </ul>
         </nav>
 
@@ -73,7 +75,9 @@
             <col />
             <col />
             <col style="width: 4ch;" />
-            <col style="width: 0px;" />
+            @can('update', $product)
+                <col style="width: 0px;" />
+            @endcan
         </colgroup>
 
         <thead>
@@ -82,7 +86,9 @@
                 <th>Name</th>
                 <th>Owner</th>
                 <th>No. of Products</th>
-                <th></th>
+                @can('update', $product)
+                    <th></th>
+                @endcan
             </tr>
         </thead>
 
@@ -104,11 +110,13 @@
                     <td>{{ $shop->name }}</td>
                     <td>{{ $shop->owner }}</td>
                     <td class="app-cl-number">{{ number_format($shop->products_count, 0) }}</td>
-                    <td>
-                        <button type="submit" form="app-form-remove-shop" name="shop" value="{{ $shop->code }}">
-                            Remove
-                        </button>
-                    </td>
+                    @can('update', $product)
+                        <td>
+                            <button type="submit" form="app-form-remove-shop" name="shop" value="{{ $shop->code }}">
+                                Remove
+                            </button>
+                        </td>
+                    @endcan
                 </tr>
             @endforeach
         </tbody>

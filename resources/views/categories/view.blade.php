@@ -33,9 +33,11 @@
                         'category' => $category->code,
                     ]) }}">Update</a>
             </li>
-            <li class="app-cl-warn">
-                <button type="submit" form="app-form-delete" class="app-cl-link">Delete</button>
-            </li>
+            @can('delete', $category)
+                <li class="app-cl-warn">
+                    <button type="submit" form="app-form-delete" class="app-cl-link">Delete</button>
+                </li>
+            @endcan
         </ul>
     </nav>
 @endsection

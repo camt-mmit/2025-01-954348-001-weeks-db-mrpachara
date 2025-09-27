@@ -35,9 +35,11 @@
             @endphp
 
             <ul class="app-cmp-links">
-                <li>
-                    <a href="{{ route('products.create-form') }}">New Product</a>
-                </li>
+                @can('create', \App\Models\Product::class)
+                    <li>
+                        <a href="{{ route('products.create-form') }}">New Product</a>
+                    </li>
+                @endcan
             </ul>
         </nav>
 

@@ -13,7 +13,7 @@
 
 <body>
     <header id="app-cmp-main-header">
-        <nav>
+        <nav class="app-cmp-user-panel">
             <ul class="app-cmp-links">
                 <li>
                     <a href="{{ route('products.list') }}">Products</a>
@@ -25,6 +25,14 @@
                     <a href="{{ route('shops.list') }}">Shops</a>
                 </li>
             </ul>
+
+            @auth
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <span class="app-cl-name">{{ \Auth::user()->name }}</span>
+                    <button type="submit">Logout</button>
+                </form>
+            @endauth
         </nav>
     </header>
 
