@@ -1,6 +1,7 @@
 @extends('categories.main', [
     'title' => $category->code,
     'titleClasses' => ['app-cl-code'],
+    'mainClasses' => ['app-ly-max-width'],
 ])
 
 @section('content')

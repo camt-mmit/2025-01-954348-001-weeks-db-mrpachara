@@ -21,6 +21,8 @@ class CategoryController extends SearchableController
 
     function list(ServerRequestInterface $request): View
     {
+        Gate::authorize('list', Category::class);
+
         $criteria = $this->prepareCriteria($request->getQueryParams());
         $query = $this->search($criteria)->withCount('products');
 
@@ -34,6 +36,8 @@ class CategoryController extends SearchableController
     {
         $category = $this->find($categoryCode);
 
+        Gate::authorize('view', $category);
+
         return view('categories.view', [
             'category' => $category,
         ]);
@@ -41,11 +45,15 @@ class CategoryController extends SearchableController
 
     function showCreateForm(): View
     {
+        Gate::authorize('create', Category::class);
+
         return view('categories.create-form');
     }
 
     function create(ServerRequestInterface $request): RedirectResponse
     {
+        Gate::authorize('create', Category::class);
+
         $category = Category::create($request->getParsedBody());
 
         return redirect(
@@ -58,6 +66,8 @@ class CategoryController extends SearchableController
     {
         $category = $this->find($categoryCode);
 
+        Gate::authorize('update', $category);
+
         return view('categories.update-form', [
             'category' => $category,
         ]);
@@ -68,6 +78,9 @@ class CategoryController extends SearchableController
         string $categoryCode,
     ): RedirectResponse {
         $category = $this->find($categoryCode);
+
+        Gate::authorize('update', $category);
+
         $category->fill($request->getParsedBody());
         $category->save();
 
@@ -98,6 +111,9 @@ class CategoryController extends SearchableController
         string $categoryCode,
     ): View {
         $category = $this->find($categoryCode);
+
+        Gate::authorize('view', $category);
+
         $criteria = $productController->prepareCriteria($request->getQueryParams());
         $query = $productController
             ->filter($category->products(), $criteria)
@@ -117,6 +133,9 @@ class CategoryController extends SearchableController
         string $categoryCode,
     ): View {
         $category = $this->find($categoryCode);
+
+        Gate::authorize('update', $category);
+
         $query = $productController
             ->getQuery()
             ->whereDoesntHave(
@@ -145,6 +164,9 @@ class CategoryController extends SearchableController
         string $categoryCode,
     ): RedirectResponse {
         $category = $this->find($categoryCode);
+
+        Gate::authorize('update', $category);
+
         $data = $request->getParsedBody();
 
         $product = $productController

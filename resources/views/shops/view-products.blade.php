@@ -60,13 +60,15 @@
                         ) }}">&lt;
                         Back</a>
                 </li>
-                <li>
-                    <a
-                        href="{{ route('shops.add-products-form', [
-                            'shop' => $shop->code,
-                        ]) }}">Add
-                        Products</a>
-                </li>
+                @can('update', $shop)
+                    <li>
+                        <a
+                            href="{{ route('shops.add-products-form', [
+                                'shop' => $shop->code,
+                            ]) }}">Add
+                            Products</a>
+                    </li>
+                @endcan
             </ul>
         </nav>
 
@@ -82,7 +84,9 @@
             <col />
             <col />
             <col style="width: 4ch;" />
-            <col style="width: 0px;" />
+            @can('update', $shop)
+                <col style="width: 0px;" />
+            @endcan
         </colgroup>
 
         <thead>
@@ -92,7 +96,9 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>No. of Shops</th>
-                <th></th>
+                @can('update', $shop)
+                    <th></th>
+                @endcan
             </tr>
         </thead>
 
@@ -121,11 +127,13 @@
                     </td>
                     <td class="app-cl-number">{{ number_format($product->price, 2) }}</td>
                     <td class="app-cl-number">{{ number_format($product->shops_count, 0) }}</td>
-                    <td>
-                        <button type="submit" form="app-form-remove-product" name="product" value="{{ $product->code }}">
-                            Remove
-                        </button>
-                    </td>
+                    @can('update', $shop)
+                        <td>
+                            <button type="submit" form="app-form-remove-product" name="product" value="{{ $product->code }}">
+                                Remove
+                            </button>
+                        </td>
+                    @endcan
                 </tr>
             @endforeach
         </tbody>

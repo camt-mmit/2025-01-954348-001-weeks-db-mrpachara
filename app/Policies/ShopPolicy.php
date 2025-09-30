@@ -2,10 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\Category;
 use App\Models\User;
 
-class CategoryPolicy
+class ShopPolicy
 {
     /**
      * Create a new policy instance.
@@ -35,9 +34,8 @@ class CategoryPolicy
         return $this->create($user);
     }
 
-    function delete(User $user, Category $category): bool
+    function delete(User $user): bool
     {
-        $category->loadCount('products');
-        return $this->update($user) && ($category->products_count === 0);
+        return $this->update($user);
     }
 }

@@ -1,5 +1,6 @@
 @extends('categories.main', [
     'title' => 'Create',
+    'mainClasses' => ['app-ly-max-width'],
 ])
 
 @section('content')

@@ -1,6 +1,7 @@
 @extends('shops.main', [
     'title' => $shop->code,
     'titleClasses' => ['app-cl-code'],
+    'mainClasses' => ['app-ly-max-width'],
 ])
 
 @section('content')

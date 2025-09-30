@@ -24,12 +24,24 @@
                 <li>
                     <a href="{{ route('shops.list') }}">Shops</a>
                 </li>
+                @can('list', \App\Models\User::class)
+                    <li>
+                        <a href="{{ route('users.list') }}">Users</a>
+                    </li>
+                @endcan
             </ul>
+
+            @php
+                if (!Route::is('users.selves.*')) {
+                    session()->put('bookmarks.users.selves.view', url()->full());
+                }
+            @endphp
 
             @auth
                 <form action="{{ route('logout') }}" method="post">
                     @csrf
-                    <span class="app-cl-name">{{ \Auth::user()->name }}</span>
+                    <a href="{{ route('users.selves.view') }}" title="click here of self information"
+                        class="app-cl-name">{{ \Auth::user()->name }}</a>
                     <button type="submit">Logout</button>
                 </form>
             @endauth

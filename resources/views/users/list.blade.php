@@ -1,11 +1,11 @@
-@extends('categories.main', [
+@extends('users.main', [
     'title' => 'List',
     'mainClasses' => ['app-ly-max-width'],
 ])
 
 @section('header')
     <search>
-        <form action="{{ route('categories.list') }}" method="get" class="app-cmp-search-form">
+        <form action="{{ route('users.list') }}" method="get" class="app-cmp-search-form">
             <div class="app-cmp-form-detail">
                 <label for="app-criteria-term">Search</label>
                 <input type="text" id="app-criteria-term" name="term" value="{{ $criteria['term'] }}" />
@@ -13,7 +13,7 @@
 
             <div class="app-cmp-form-actions">
                 <button type="submit" class="app-cl-primary">Search</button>
-                <a href="{{ route('categories.list') }}">
+                <a href="{{ route('users.list') }}">
                     <button type="button" class="app-cl-accent">X</button>
                 </a>
             </div>
@@ -23,55 +23,55 @@
     <div class="app-cmp-links-bar">
         <nav>
             @php
-                session()->put('bookmarks.categories.create-form', url()->full());
+                session()->put('bookmarks.users.create-form', url()->full());
             @endphp
 
             <ul class="app-cmp-links">
-                @can('create', \App\Models\Category::class)
+                @can('create', \App\Models\User::class)
                     <li>
-                        <a href="{{ route('categories.create-form') }}">New Category</a>
+                        <a href="{{ route('users.create-form') }}">New User</a>
                     </li>
                 @endcan
             </ul>
         </nav>
 
-        {{ $categories->withQueryString()->links() }}
+        {{ $users->withQueryString()->links() }}
     </div>
 @endsection
 
 @section('content')
     <table class="app-cmp-data-list">
         <colgroup>
-            <col style="width: 5ch;" />
             <col />
-            <col style="width: 4ch;" />
+            <col />
+            <col style="width: 16ch;" />
         </colgroup>
 
         <thead>
             <tr>
-                <th>Code</th>
+                <th>Email</th>
                 <th>Name</th>
-                <th>No. of Products</th>
+                <th>Role</th>
             </tr>
         </thead>
 
         <tbody>
             @php
-                session()->put('bookmarks.categories.view', url()->full());
+                session()->put('bookmarks.users.view', url()->full());
             @endphp
 
-            @foreach ($categories as $category)
+            @foreach ($users as $user)
                 <tr>
                     <td>
-                        <a href="{{ route('categories.view', [
-                            'category' => $category->code,
+                        <a href="{{ route('users.view', [
+                            'user' => $user->email,
                         ]) }}"
                             class="app-cl-code">
-                            {{ $category->code }}
+                            {{ $user->email }}
                         </a>
                     </td>
-                    <td>{{ $category->name }}</td>
-                    <td class="app-cl-number">{{ $category->products_count }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td class="app-cl-code">{{ $user->role }}</td>
                 </tr>
             @endforeach
         </tbody>

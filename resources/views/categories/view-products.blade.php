@@ -53,13 +53,15 @@
                         ) }}">&lt;
                         Back</a>
                 </li>
-                <li>
-                    <a
-                        href="{{ route('categories.add-products-form', [
-                            'category' => $category->code,
-                        ]) }}">Add
-                        Products</a>
-                </li>
+                @can('update', $category)
+                    <li>
+                        <a
+                            href="{{ route('categories.add-products-form', [
+                                'category' => $category->code,
+                            ]) }}">Add
+                            Products</a>
+                    </li>
+                @endcan
             </ul>
         </nav>
 

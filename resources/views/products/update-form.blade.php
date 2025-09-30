@@ -19,8 +19,9 @@
             <label for="app-inp-category">Category</label>
             <select id="app-inp-category" name="category" required>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->code }}" @selected($product->category->code === $category->code)>[{{ $category->code }}]
-                        {{ $category->name }}</option>
+                    <option value="{{ $category->code }}" @selected($category->is($product->category))>[{{ $category->code }}]
+                        {{ $category->name }}
+                    </option>
                 @endforeach
             </select>
 

@@ -17,7 +17,9 @@
             <select id="app-inp-category" name="category" required>
                 <option value="">--- Please Select Category ---</option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->code }}">[{{ $category->code }}] {{ $category->name }}</option>
+                    <option value="{{ $category->code }}">
+                        [{{ $category->code }}] {{ $category->name }}
+                    </option>
                 @endforeach
             </select>
 
