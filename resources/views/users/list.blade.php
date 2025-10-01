@@ -28,7 +28,7 @@
 
             <ul class="app-cmp-links">
                 @can('create', \App\Models\User::class)
-                    <li>
+                    <li class="app-cl-filled">
                         <a href="{{ route('users.create-form') }}">New User</a>
                     </li>
                 @endcan

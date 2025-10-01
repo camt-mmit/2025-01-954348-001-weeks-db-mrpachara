@@ -36,7 +36,7 @@
 
             <ul class="app-cmp-links">
                 @can('create', \App\Models\Product::class)
-                    <li>
+                    <li class="app-cl-filled">
                         <a href="{{ route('products.create-form') }}">New Product</a>
                     </li>
                 @endcan

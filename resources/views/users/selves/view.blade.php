@@ -12,7 +12,7 @@
                     Back</a>
             </li>
             @can('selfUpdate', $user)
-                <li>
+                <li class="app-cl-filled">
                     <a href="{{ route('users.selves.update-form') }}">Self Update</a>
                 </li>
             @endcan

@@ -28,7 +28,7 @@
 
             <ul class="app-cmp-links">
                 @can('create', \App\Models\Category::class)
-                    <li>
+                    <li class="app-cl-filled">
                         <a href="{{ route('categories.create-form') }}">New Category</a>
                     </li>
                 @endcan

@@ -29,7 +29,7 @@
                     Products</a>
             </li>
             @can('update', $shop)
-                <li>
+                <li class="app-cl-filled">
                     <a
                         href="{{ route('shops.update-form', [
                             'shop' => $shop->code,
@@ -37,7 +37,7 @@
                 </li>
             @endcan
             @can('delete', $shop)
-                <li class="app-cl-warn">
+                <li class="app-cl-warn app-cl-filled">
                     <button type="submit" form="app-form-delete" class="app-cl-link">Delete</button>
                 </li>
             @endcan

@@ -54,7 +54,7 @@
                         Back</a>
                 </li>
                 @can('update', $category)
-                    <li>
+                    <li class="app-cl-filled">
                         <a
                             href="{{ route('categories.add-products-form', [
                                 'category' => $category->code,

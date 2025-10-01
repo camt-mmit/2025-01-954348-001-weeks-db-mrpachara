@@ -22,9 +22,17 @@
             <div class="app-cmp-form-detail">
                 <label for="app-inp-email">Email</label>
                 <input type="email" id="app-inp-email" name="email" required />
+                @error('email')
+                    <span></span>
+                    <span class="app-cl-warn">{{ $message }}</span>
+                @enderror
 
                 <label for="app-inp-password">Password</label>
                 <input type="password" id="app-inp-password" name="password" required />
+                @error('password')
+                    <span></span>
+                    <span class="app-cl-warn">{{ $message }}</span>
+                @enderror
             </div>
 
             <div class="app-cmp-form-actions">

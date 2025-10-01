@@ -17,17 +17,20 @@ class LoginController extends Controller
 
     function authenticate(ServerRequestInterface $request): RedirectResponse
     {
-        $data = $request->getParsedBody();
-        $credentials = [
-            'email' => $data['email'] ?? null,
-            'password' => $data['password'] ?? null,
-        ];
-        $validator = Validator::make($credentials, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $validator = Validator::make(
+            $request->getParsedBody(),
+            [
+                'email' => 'required|email',
+                'password' => 'required',
+            ],
+        );
 
-        if ($validator->passes() && Auth::attempt($credentials)) {
+        if (
+            $validator->passes() &&
+            Auth::attempt(
+                $validator->safe()->only(['email', 'password']),
+            )
+        ) {
             session()->regenerate();
 
             return redirect()->intended(route('products.list'));

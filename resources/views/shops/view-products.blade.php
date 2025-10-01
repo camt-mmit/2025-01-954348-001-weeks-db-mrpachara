@@ -61,7 +61,7 @@
                         Back</a>
                 </li>
                 @can('update', $shop)
-                    <li>
+                    <li class="app-cl-filled">
                         <a
                             href="{{ route('shops.add-products-form', [
                                 'shop' => $shop->code,

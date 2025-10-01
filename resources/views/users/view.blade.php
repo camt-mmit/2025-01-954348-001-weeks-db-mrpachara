@@ -18,7 +18,7 @@
                     Back</a>
             </li>
             @can('update', $user)
-                <li>
+                <li class="app-cl-filled">
                     <a
                         href="{{ route('users.update-form', [
                             'user' => $user->email,
@@ -26,7 +26,7 @@
                 </li>
             @endcan
             @can('delete', $user)
-                <li class="app-cl-warn">
+                <li class="app-cl-warn app-cl-filled">
                     <button type="submit" form="app-form-delete" class="app-cl-link">Delete</button>
                 </li>
             @endcan

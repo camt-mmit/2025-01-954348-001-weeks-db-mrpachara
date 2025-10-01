@@ -26,7 +26,10 @@ body {
 }
 
 .app-cl-warn {
-    color: var(--app-warn-color);
+    --app-cmp-color: var(--app-warn-color);
+
+    color: var(--app-cmp-color);
+    border-color: var(--app-cmp-color);
 }
 
 .app-cl-number,
@@ -36,14 +39,26 @@ input[type="number"] {
 }
 
 .app-cl-code {
-    color: var(--app-primary-color);
+    --app-cmp-color: var(--app-primary-color);
+
+    color: var(--app-cmp-color);
+    border-color: var(--app-cmp-color);
     font-family: monospace;
     font-weight: bold;
 }
 
 .app-cl-name {
-    color: var(--app-primary-color);
+    --app-cmp-color: var(--app-primary-color);
+
+    color: var(--app-cmp-color);
+    border-color: var(--app-cmp-color);
     font-weight: bold;
+}
+
+.app-cl-filled {
+    color: white;
+    background-color: var(--app-cmp-color);
+    border-color: var(--app-cmp-color);
 }
 
 .app-cl-options-row {
@@ -182,7 +197,7 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
 
         & > * {
             margin-bottom: 8px;
-            border: 1px solid currentColor;
+            border: 1px solid var(--app-cmp-color);
             border-radius: 4px;
             padding: 0.5em 1ch;
 
@@ -190,18 +205,22 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
         }
 
         & > [role="status"] {
-            color: var(--app-primary-color);
+            --app-cmp-color: var(--app-primary-color);
+
+            color: var(--app-cmp-color);
 
             &::before {
-                content: 'ℹ';
+                content: "ℹ";
             }
         }
 
         & > [role="alert"] {
-            color: var(--app-warn-color);
+            --app-cmp-color: var(--app-primary-color);
+
+            color: var(--app-cmp-color);
 
             &::before {
-                content: '⚠';
+                content: "⚠";
             }
         }
     }
@@ -209,6 +228,10 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
 
 /* Additional */
 .app-cmp-links {
+    --app-cmp-color: var(--app-primary-color);
+
+    color: var(--app-cmp-color);
+
     margin: 0px;
     padding: 0px;
     list-style: none;
@@ -218,8 +241,6 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
     justify-content: center;
     align-items: stretch;
     column-gap: 8px;
-
-    color: var(--app-primary-color);
     font-weight: bold;
 
     & > * {
@@ -227,7 +248,7 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
         padding: 0px;
         box-sizing: border-box;
 
-        border: 1px solid currentColor;
+        border: 1px solid var(--app-cmp-color);
         border-radius: 4px;
     }
 
@@ -277,7 +298,7 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
     align-items: center;
     column-gap: 8px;
 
-    &>form:last-child {
+    & > form:last-child {
         margin-left: auto;
 
         @layer {
