@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -172,7 +173,25 @@ class UserController extends SearchableController
         // Needed for responding with 403
         Gate::authorize('selfUpdate', $user);
 
-        $data = $request->getParsedBody();
+        $validator = Validator::make(
+            $request->getParsedBody(),
+            [
+                'name' => 'required',
+                'password' => 'sometimes|confirmed',
+                'password_confirmation' => 'required_with:password',
+                'current_password' => 'required|current_password',
+            ],
+        );
+
+        if ($validator->failed()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput()
+            ;
+        }
+
+        $data = $validator->validated();
         $password = $data['password'] ?? null;
         unset($data['password']);
         $user->fill($data);

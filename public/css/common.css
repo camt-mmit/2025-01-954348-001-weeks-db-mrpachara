@@ -215,7 +215,7 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
         }
 
         & > [role="alert"] {
-            --app-cmp-color: var(--app-primary-color);
+            --app-cmp-color: var(--app-warn-color);
 
             color: var(--app-cmp-color);
 
