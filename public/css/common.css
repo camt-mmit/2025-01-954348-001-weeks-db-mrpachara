@@ -1,10 +1,16 @@
 :root {
-    font-family: sans-serif;
-    font-size: 16px;
+    --app-general-font: "Roboto Flex", "Noto+Sans+Thai+Looped", sans-serif;
+    --app-monospace-font: "Roboto Mono", monospace;
 
     --app-max-width: 600px;
     --app-primary-color: blue;
     --app-warn-color: red;
+
+    --app-general-gap: 4px;
+    --app-inner-button-gap: var(--app-general-gap);
+
+    font-family: var(--app-general-font);
+    font-size: 16px;
 }
 
 html,
@@ -25,6 +31,13 @@ body {
     }
 }
 
+.app-cl-primary {
+    --app-cmp-color: var(--app-primary-color);
+
+    color: var(--app-cmp-color);
+    border-color: var(--app-cmp-color);
+}
+
 .app-cl-warn {
     --app-cmp-color: var(--app-warn-color);
 
@@ -34,7 +47,7 @@ body {
 
 .app-cl-number,
 input[type="number"] {
-    font-family: monospace;
+    font-family: var(--app-monospace-font);
     text-align: right;
 }
 
@@ -43,7 +56,7 @@ input[type="number"] {
 
     color: var(--app-cmp-color);
     border-color: var(--app-cmp-color);
-    font-family: monospace;
+    font-family: var(--app-monospace-font);
     font-weight: bold;
 }
 
@@ -59,6 +72,24 @@ input[type="number"] {
     color: white;
     background-color: var(--app-cmp-color);
     border-color: var(--app-cmp-color);
+}
+
+button,
+.app-cl-button {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: var(--app-inner-button-gap);
+
+    text-decoration: none;
+
+    border: 1px solid var(--app-cmp-color);
+
+    cursor: pointer;
+
+    & > * {
+        pointer-events: none;
+    }
 }
 
 .app-cl-options-row {
@@ -196,12 +227,34 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
         align-items: center;
 
         & > * {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            column-gap: var(--app-general-gap);
+
             margin-bottom: 8px;
             border: 1px solid var(--app-cmp-color);
             border-radius: 4px;
             padding: 0.5em 1ch;
 
             font-weight: bold;
+            text-align: justify;
+
+            &::before {
+                font-family: "Material Symbols Outlined";
+                font-weight: normal;
+                font-style: normal;
+                font-size: 24px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                white-space: nowrap;
+                word-wrap: normal;
+                direction: ltr;
+                font-feature-settings: "liga";
+                -webkit-font-smoothing: antialiased;
+            }
         }
 
         & > [role="status"] {
@@ -210,7 +263,7 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
             color: var(--app-cmp-color);
 
             &::before {
-                content: "ℹ";
+                content: "info";
             }
         }
 
@@ -220,7 +273,7 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
             color: var(--app-cmp-color);
 
             &::before {
-                content: "⚠";
+                content: "warning";
             }
         }
     }
@@ -254,7 +307,11 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
 
     a,
     .app-cl-link {
-        display: block;
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        column-gap: var(--app-inner-button-gap);
+
         box-sizing: border-box;
 
         padding: 0.5em 1ch 0.5em 1ch;
@@ -298,19 +355,8 @@ dl.app-cmp-data-detail > dt:not(:empty)::after {
     align-items: center;
     column-gap: 8px;
 
-    & > form:last-child {
+    & > .app-cmp-user-actions:last-child {
         margin-left: auto;
-
-        @layer {
-            a {
-                text-decoration: none;
-                color: inherit;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
     }
 }
 

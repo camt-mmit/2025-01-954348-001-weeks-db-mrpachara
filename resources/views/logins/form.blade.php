@@ -5,6 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped:wght@100..900&family=Roboto+Flex:opsz,wdth,wght,GRAD@8..144,25..151,100..1000,-200..150&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" />
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-25..200&display=block" />
+
     <link rel="stylesheet" type="text/css" href="{{ asset('css/common.css') }}" />
 
     <title>Login</title>
@@ -36,7 +46,10 @@
             </div>
 
             <div class="app-cmp-form-actions">
-                <button type="submit">Login</button>
+                <button type="submit" class="app-cl-primary app-cl-filled">
+                    <i class="material-symbols-outlined">login</i>
+                    Login
+                </button>
             </div>
 
             <div class="app-cmp-notifications" style="margin-top: 1em;">

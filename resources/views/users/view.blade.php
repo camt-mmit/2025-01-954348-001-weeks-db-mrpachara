@@ -14,20 +14,28 @@
 
         <ul class="app-cmp-links">
             <li>
-                <a href="{{ session()->get('bookmarks.users.view', route('users.list')) }}">&lt;
-                    Back</a>
+                <a href="{{ session()->get('bookmarks.users.view', route('users.list')) }}">
+                    <i class="material-symbols-outlined">chevron_backward</i>
+                    Back
+                </a>
             </li>
             @can('update', $user)
                 <li class="app-cl-filled">
                     <a
                         href="{{ route('users.update-form', [
                             'user' => $user->email,
-                        ]) }}">Update</a>
+                        ]) }}">
+                        <i class="material-symbols-outlined">edit_square</i>
+                        Update
+                    </a>
                 </li>
             @endcan
             @can('delete', $user)
                 <li class="app-cl-warn app-cl-filled">
-                    <button type="submit" form="app-form-delete" class="app-cl-link">Delete</button>
+                    <button type="submit" form="app-form-delete" class="app-cl-link">
+                        <i class="material-symbols-outlined">delete_forever</i>
+                        Delete
+                    </button>
                 </li>
             @endcan
         </ul>

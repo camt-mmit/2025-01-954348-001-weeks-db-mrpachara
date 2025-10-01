@@ -47,9 +47,15 @@
         </div>
 
         <div class="app-cmp-form-actions">
-            <button type="submit">Update</button>
+            <button type="submit" class="app-cl-primary app-cl-filled">
+                <i class="material-symbols-outlined">save</i>
+                Update
+            </button>
             <a href="{{ session()->get('bookmarks.users.selves.update-form', route('users.selves.view')) }}">
-                <button type="button">Cancel</button>
+                <button type="button" class="app-cl-warn app-cl-filled">
+                    <i class="material-symbols-outlined">cancel</i>
+                    Cancel
+                </button>
             </a>
         </div>
     </form>

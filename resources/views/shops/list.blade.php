@@ -12,10 +12,14 @@
             </div>
 
             <div class="app-cmp-form-actions">
-                <button type="submit" class="app-cl-primary">Search</button>
                 <a href="{{ route('shops.list') }}">
-                    <button type="button" class="app-cl-accent">X</button>
+                    <button type="button" class="app-cl-warn app-cl-filled">
+                        <i class="material-symbols-outlined">close</i>
+                    </button>
                 </a>
+                <button type="submit" class="app-cl-primary app-cl-filled">
+                    <i class="material-symbols-outlined">search</i>
+                </button>
             </div>
         </form>
     </search>
@@ -29,7 +33,10 @@
             <ul class="app-cmp-links">
                 @can('create', \App\Models\Shop::class)
                     <li class="app-cl-filled">
-                        <a href="{{ route('shops.create-form') }}">New Shop</a>
+                        <a href="{{ route('shops.create-form') }}">
+                            <i class="material-symbols-outlined">add_box</i>
+                            New Shop
+                        </a>
                     </li>
                 @endcan
             </ul>

@@ -18,27 +18,37 @@
             @endphp
 
             <li>
-                <a href="{{ session()->get('bookmarks.shops.view', route('shops.list')) }}">&lt;
-                    Back</a>
+                <a href="{{ session()->get('bookmarks.shops.view', route('shops.list')) }}">
+                    <i class="material-symbols-outlined">chevron_backward</i>
+                    Back
+                </a>
             </li>
             <li>
                 <a
                     href="{{ route('shops.view-products', [
                         'shop' => $shop->code,
-                    ]) }}">View
-                    Products</a>
+                    ]) }}">
+                    <i class="material-symbols-outlined">list</i>
+                    View Products
+                </a>
             </li>
             @can('update', $shop)
                 <li class="app-cl-filled">
                     <a
                         href="{{ route('shops.update-form', [
                             'shop' => $shop->code,
-                        ]) }}">Update</a>
+                        ]) }}">
+                        <i class="material-symbols-outlined">edit_square</i>
+                        Update
+                    </a>
                 </li>
             @endcan
             @can('delete', $shop)
                 <li class="app-cl-warn app-cl-filled">
-                    <button type="submit" form="app-form-delete" class="app-cl-link">Delete</button>
+                    <button type="submit" form="app-form-delete" class="app-cl-link">
+                        <i class="material-symbols-outlined">delete_forever</i>
+                        Delete
+                    </button>
                 </li>
             @endcan
         </ul>

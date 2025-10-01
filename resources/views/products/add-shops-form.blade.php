@@ -22,8 +22,13 @@
                     href="{{ route('products.add-shops-form', [
                         'product' => $product->code,
                     ]) }}">
-                    <button type="button" class="app-cl-accent">X</button>
+                    <button type="button" class="app-cl-warn app-cl-filled">
+                        <i class="material-symbols-outlined">close</i>
+                    </button>
                 </a>
+                <button type="submit" class="app-cl-primary app-cl-filled">
+                    <i class="material-symbols-outlined">search</i>
+                </button>
             </div>
         </form>
     </search>
@@ -45,8 +50,10 @@
                             route('products.view-shops', [
                                 'product' => $product->code,
                             ]),
-                        ) }}">&lt;
-                        Back</a>
+                        ) }}">
+                        <i class="material-symbols-outlined">chevron_backward</i>
+                        Back
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -94,8 +101,9 @@
                     <td>{{ $shop->owner }}</td>
                     <td class="app-cl-number">{{ number_format($shop->products_count, 0) }}</td>
                     <td>
-                        <button type="submit" form="app-form-add-shop" name="shop" value="{{ $shop->code }}">
-                            Add
+                        <button type="submit" form="app-form-add-shop" name="shop" value="{{ $shop->code }}"
+                            title="Add" class="app-cl-primary app-cl-filled">
+                            <i class="material-symbols-outlined">add_circle</i>
                         </button>
                     </td>
                 </tr>

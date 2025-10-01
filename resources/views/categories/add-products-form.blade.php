@@ -25,13 +25,17 @@
             </div>
 
             <div class="app-cmp-form-actions">
-                <button type="submit" class="app-cl-primary">Search</button>
                 <a
                     href="{{ route('categories.add-products-form', [
                         'category' => $category->code,
                     ]) }}">
-                    <button type="button" class="app-cl-accent">X</button>
+                    <button type="button" class="app-cl-warn app-cl-filled">
+                        <i class="material-symbols-outlined">close</i>
+                    </button>
                 </a>
+                <button type="submit" class="app-cl-primary app-cl-filled">
+                    <i class="material-symbols-outlined">search</i>
+                </button>
             </div>
         </form>
     </search>
@@ -54,8 +58,10 @@
                             route('categories.view-products', [
                                 'category' => $category->code,
                             ]),
-                        ) }}">&lt;
-                        Back</a>
+                        ) }}">
+                        <i class="material-symbols-outlined">chevron_backward</i>
+                        Back
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -106,8 +112,9 @@
                     <td class="app-cl-number">{{ number_format($product->price, 2) }}</td>
                     <td class="app-cl-number">{{ number_format($product->shops_count, 0) }}</td>
                     <td>
-                        <button type="submit" form="app-form-add-product" name="product" value="{{ $product->code }}">
-                            Add
+                        <button type="submit" form="app-form-add-product" name="product" value="{{ $product->code }}"
+                            title="Add" class="app-cl-primary app-cl-filled">
+                            <i class="material-symbols-outlined">add_circle</i>
                         </button>
                     </td>
                 </tr>

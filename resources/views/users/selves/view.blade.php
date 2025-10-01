@@ -8,12 +8,17 @@
             @endphp
 
             <li>
-                <a href="{{ session()->get('bookmarks.users.selves.view', route('products.list')) }}">&lt;
-                    Back</a>
+                <a href="{{ session()->get('bookmarks.users.selves.view', route('products.list')) }}">
+                    <i class="material-symbols-outlined">chevron_backward</i>
+                    Back
+                </a>
             </li>
             @can('selfUpdate', $user)
                 <li class="app-cl-filled">
-                    <a href="{{ route('users.selves.update-form') }}">Self Update</a>
+                    <a href="{{ route('users.selves.update-form') }}">
+                        <i class="material-symbols-outlined">person_edit</i>
+                        Self Update
+                    </a>
                 </li>
             @endcan
         </ul>

@@ -17,13 +17,17 @@
             </div>
 
             <div class="app-cmp-form-actions">
-                <button type="submit" class="app-cl-primary">Search</button>
                 <a
                     href="{{ route('products.view-shops', [
                         'product' => $product->code,
                     ]) }}">
-                    <button type="button" class="app-cl-accent">X</button>
+                    <button type="button" class="app-cl-warn app-cl-filled">
+                        <i class="material-symbols-outlined">close</i>
+                    </button>
                 </a>
+                <button type="submit" class="app-cl-primary app-cl-filled">
+                    <i class="material-symbols-outlined">search</i>
+                </button>
             </div>
         </form>
     </search>
@@ -49,16 +53,20 @@
                             route('products.view', [
                                 'product' => $product->code,
                             ]),
-                        ) }}">&lt;
-                        Back</a>
+                        ) }}">
+                        <i class="material-symbols-outlined">chevron_backward</i>
+                        Back
+                    </a>
                 </li>
                 @can('update', $product)
                     <li class="app-cl-filled">
                         <a
                             href="{{ route('products.add-shops-form', [
                                 'product' => $product->code,
-                            ]) }}">Add
-                            Shops</a>
+                            ]) }}">
+                            <i class="material-symbols-outlined">table_edit</i>
+                            Add Shops
+                        </a>
                     </li>
                 @endcan
             </ul>
@@ -112,8 +120,9 @@
                     <td class="app-cl-number">{{ number_format($shop->products_count, 0) }}</td>
                     @can('update', $product)
                         <td>
-                            <button type="submit" form="app-form-remove-shop" name="shop" value="{{ $shop->code }}">
-                                Remove
+                            <button type="submit" form="app-form-remove-shop" name="shop" value="{{ $shop->code }}"
+                                title="Remove" class="app-cl-warn app-cl-filled">
+                                <i class="material-symbols-outlined">delete</i>
                             </button>
                         </td>
                     @endcan
