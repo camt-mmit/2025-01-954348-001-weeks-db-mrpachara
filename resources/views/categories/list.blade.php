@@ -70,12 +70,16 @@
             @foreach ($categories as $category)
                 <tr>
                     <td>
-                        <a href="{{ route('categories.view', [
-                            'category' => $category->code,
-                        ]) }}"
-                            class="app-cl-code">
-                            {{ $category->code }}
-                        </a>
+                        @can('view', $category)
+                            <a href="{{ route('categories.view', [
+                                'category' => $category->code,
+                            ]) }}"
+                                class="app-cl-code">
+                                {{ $category->code }}
+                            </a>
+                        @else
+                            <span class="app-cl-code">{{ $category->code }}</span>
+                        @endcan
                     </td>
                     <td>{{ $category->name }}</td>
                     <td class="app-cl-number">{{ $category->products_count }}</td>

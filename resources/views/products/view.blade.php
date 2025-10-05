@@ -23,15 +23,17 @@
                     Back
                 </a>
             </li>
-            <li>
-                <a
-                    href="{{ route('products.view-shops', [
-                        'product' => $product->code,
-                    ]) }}">
-                    <i class="material-symbols-outlined">list</i>
-                    View Shops
-                </a>
-            </li>
+            @can('view', $product)
+                <li>
+                    <a
+                        href="{{ route('products.view-shops', [
+                            'product' => $product->code,
+                        ]) }}">
+                        <i class="material-symbols-outlined">list</i>
+                        View Shops
+                    </a>
+                </li>
+            @endcan
             @can('update', $product)
                 <li class="app-cl-filled">
                     <a

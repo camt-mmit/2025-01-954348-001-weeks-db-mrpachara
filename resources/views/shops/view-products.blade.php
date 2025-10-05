@@ -119,26 +119,38 @@
             @foreach ($products as $product)
                 <tr>
                     <td>
-                        <a href="{{ route('products.view', [
-                            'product' => $product->code,
-                        ]) }}"
-                            class="app-cl-code">
-                            {{ $product->code }}
-                        </a>
+                        @can('view', $product)
+                            <a href="{{ route('products.view', [
+                                'product' => $product->code,
+                            ]) }}"
+                                class="app-cl-code">
+                                {{ $product->code }}
+                            </a>
+                        @else
+                            <span class="app-cl-code">{{ $product->code }}</span>
+                        @endcan
                     </td>
                     <td>{{ $product->name }}</td>
                     <td>
-                        <a href="{{ route('categories.view', [
-                            'category' => $product->category->code,
-                        ]) }}"
-                            class="app-cl-name">{{ $product->category->name }}</a>
+                        @can('view', $product->category)
+                            <a href="{{ route('categories.view', [
+                                'category' => $product->category->code,
+                            ]) }}"
+                                class="app-cl-name">
+                                {{ $product->category->name }}
+                            </a>
+                        @else
+                            <span class="app-cl-name">{{ $product->category->name }}</span>
+                        @endcan
                     </td>
                     <td class="app-cl-number">{{ number_format($product->price, 2) }}</td>
                     <td class="app-cl-number">{{ number_format($product->shops_count, 0) }}</td>
                     @can('update', $shop)
                         <td>
                             <button type="submit" form="app-form-remove-product" name="product" value="{{ $product->code }}"
-                                title="Remove" class="app-cl-warn app-cl-filled">
+                                title="Remove product {{ $product->code }} from shop {{ $shop->code }}"
+                                aria-label="Remove product {{ $product->code }} from shop {{ $shop->code }}"
+                                class="app-cl-warn app-cl-filled">
                                 <i class="material-symbols-outlined">delete</i>
                             </button>
                         </td>

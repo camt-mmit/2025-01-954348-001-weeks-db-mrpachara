@@ -105,12 +105,16 @@
             @foreach ($products as $product)
                 <tr>
                     <td>
-                        <a href="{{ route('products.view', [
-                            'product' => $product->code,
-                        ]) }}"
-                            class="app-cl-code">
-                            {{ $product->code }}
-                        </a>
+                        @can('view', $product)
+                            <a href="{{ route('products.view', [
+                                'product' => $product->code,
+                            ]) }}"
+                                class="app-cl-code">
+                                {{ $product->code }}
+                            </a>
+                        @else
+                            <span class="app-cl-code">{{ $product->code }}</span>
+                        @endcan
                     </td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->name }}</td>

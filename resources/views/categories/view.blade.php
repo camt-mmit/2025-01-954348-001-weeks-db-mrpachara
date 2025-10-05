@@ -23,15 +23,17 @@
                     Back
                 </a>
             </li>
-            <li>
-                <a
-                    href="{{ route('categories.view-products', [
-                        'category' => $category->code,
-                    ]) }}">
-                    <i class="material-symbols-outlined">list</i>
-                    View Products
-                </a>
-            </li>
+            @can('view', $category)
+                <li>
+                    <a
+                        href="{{ route('categories.view-products', [
+                            'category' => $category->code,
+                        ]) }}">
+                        <i class="material-symbols-outlined">list</i>
+                        View Products
+                    </a>
+                </li>
+            @endcan
             @can('update', $category)
                 <li class="app-cl-filled">
                     <a

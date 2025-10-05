@@ -90,19 +90,25 @@
             @foreach ($shops as $shop)
                 <tr>
                     <td>
-                        <a href="{{ route('shops.view', [
-                            'shop' => $shop->code,
-                        ]) }}"
-                            class="app-cl-code">
-                            {{ $shop->code }}
-                        </a>
+                        @can('view', $shop)
+                            <a href="{{ route('shops.view', [
+                                'shop' => $shop->code,
+                            ]) }}"
+                                class="app-cl-code">
+                                {{ $shop->code }}
+                            </a>
+                        @else
+                            <span class="app-cl-code">{{ $shop->code }}</span>
+                        @endcan
                     </td>
                     <td>{{ $shop->name }}</td>
                     <td>{{ $shop->owner }}</td>
                     <td class="app-cl-number">{{ number_format($shop->products_count, 0) }}</td>
                     <td>
                         <button type="submit" form="app-form-add-shop" name="shop" value="{{ $shop->code }}"
-                            title="Add" class="app-cl-primary app-cl-filled">
+                            title="Add shop {{ $shop->code }} to product {{ $product->code }}"
+                            aria-label="Add shop {{ $shop->code }} to product {{ $product->code }}"
+                            class="app-cl-primary app-cl-filled">
                             <i class="material-symbols-outlined">add_circle</i>
                         </button>
                     </td>

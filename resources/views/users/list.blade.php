@@ -70,12 +70,16 @@
             @foreach ($users as $user)
                 <tr>
                     <td>
-                        <a href="{{ route('users.view', [
-                            'user' => $user->email,
-                        ]) }}"
-                            class="app-cl-code">
-                            {{ $user->email }}
-                        </a>
+                        @can('view', $user)
+                            <a href="{{ route('users.view', [
+                                'user' => $user->email,
+                            ]) }}"
+                                class="app-cl-code">
+                                {{ $user->email }}
+                            </a>
+                        @else
+                            <span class="app-cl-code">{{ $user->email }}</span>
+                        @endcan
                     </td>
                     <td>{{ $user->name }}</td>
                     <td class="app-cl-code">{{ $user->role }}</td>

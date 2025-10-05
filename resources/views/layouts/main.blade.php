@@ -25,15 +25,21 @@
     <header id="app-cmp-main-header">
         <nav class="app-cmp-user-panel">
             <ul class="app-cmp-links">
-                <li>
-                    <a href="{{ route('products.list') }}">Products</a>
-                </li>
-                <li>
-                    <a href="{{ route('categories.list') }}">Categories</a>
-                </li>
-                <li>
-                    <a href="{{ route('shops.list') }}">Shops</a>
-                </li>
+                @can('list', \App\Models\Product::class)
+                    <li>
+                        <a href="{{ route('products.list') }}">Products</a>
+                    </li>
+                @endcan
+                @can('list', \App\Models\Category::class)
+                    <li>
+                        <a href="{{ route('categories.list') }}">Categories</a>
+                    </li>
+                @endcan
+                @can('list', \App\Models\Shop::class)
+                    <li>
+                        <a href="{{ route('shops.list') }}">Shops</a>
+                    </li>
+                @endcan
                 @can('list', \App\Models\User::class)
                     <li>
                         <a href="{{ route('users.list') }}">Users</a>
@@ -50,11 +56,19 @@
             @auth
                 <form action="{{ route('logout') }}" method="post" class="app-cmp-user-actions">
                     @csrf
-                    <a href="{{ route('users.selves.view') }}" title="click here of self information"
-                        style="padding: 4px; border-radius: 4px;" class="app-cl-primary app-cl-button app-cl-filled">
-                        <i class="material-symbols-outlined">person</i>
-                        {{ \Auth::user()->name }}
-                    </a>
+                    @can('selfView', \Auth::user())
+                        <a href="{{ route('users.selves.view') }}" title="click here of self information"
+                            style="padding: 4px; border-radius: 4px;" class="app-cl-primary app-cl-button app-cl-filled">
+                            <i class="material-symbols-outlined">person</i>
+                            {{ \Auth::user()->name }}
+                        </a>
+                    @else
+                        <span style="padding: 4px; border-radius: 4px; cursor: initial"
+                            class="app-cl-primary app-cl-button app-cl-filled">
+                            <i class="material-symbols-outlined">person</i>
+                            {{ \Auth::user()->name }}
+                        </span>
+                    @endcan
                     <button type="submit" title="Logout" class="app-cl-warn app-cl-filled">
                         <i class="material-symbols-outlined">logout</i>
                     </button>
@@ -77,6 +91,12 @@
                         {{ $value }}
                     </div>
                 @endsession
+
+                @error('alert')
+                    <div role="alert">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
             @yield('header')
